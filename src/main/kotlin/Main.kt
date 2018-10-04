@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
             "postgres",
             "59809690"
     )
-    transaction {{
+    transaction {
 //        //SchemaUtils.create(MusicTable)
 //        //if (songs != null) {
 //            //for (song in songs){
@@ -55,6 +55,22 @@ fun main(args: Array<String>) {
                // }
             //}
         }
-    }
+    val menuPrincipal="""
+        1)Buscar canciones por nombre
+        2)Buscar canciones por artista
+        3)Mostrar canciones favoritas
+        4)Salir
+    """.trimIndent()
+    var wantsToContinue=true
+    do {
+        println(menuPrincipal)
+        var selectedOption= readLine()!!.toIntOrNull()
+        when(selectedOption){
+            1->{print("Ingrese el nombre de la cancion que quiere buscar:")
+                val stringToSearch= readLine()!!
+                
+            }
+        }
+    }while (wantsToContinue)
 
 }
