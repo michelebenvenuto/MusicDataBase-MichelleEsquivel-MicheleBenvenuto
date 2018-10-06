@@ -7,6 +7,7 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 fun main(args: Array<String>) {
+    val buscador = Buscador
 
     val url="https://next.json-generator.com/api/json/get/EkeSgmXycS"
 
@@ -69,22 +70,49 @@ fun main(args: Array<String>) {
             when (selectedOption) {
                 1 -> {
                     print("Ingrese el nombre de la cancion que quiere buscar:")
+                    var i=1
                     val stringToSearch = readLine()!!
-                    for (song in MusicTable.select { MusicTable.title.like("%${stringToSearch}%") }) {
-                        println(song)
+                    var songsTosearch=MusicTable.select { MusicTable.title.like("%${stringToSearch}%") }
+                    for (song in songsTosearch) {
+                        println("$i) ${song.data.get(5)}\n")
+                        i+=1
+                    }
+                    print("Desea guardar alguna cancion como favorita?")
+                    var wantsToFavorite= readLine()!!
+                    if (wantsToFavorite.toUpperCase()=="SI"){
+                        print("Cual?")
+                        var songToFavorite= readLine()!!.toIntOrNull()
+                        if (songToFavorite != null) {
+                            if (songToFavorite > i|| songToFavorite<0){
+                                println("Esta opcion no existe")
+                            }
+                            else{
+                                
+
+                            }
+
+                        }
                     }
 
 
                 }
                 2->{
-                    println("Ingrese el nombre del artista que quiere buscar:")
+                    print("Ingrese el nombre del artista que quiere buscar:")
+                    var i=1
                     val stringToSearch = readLine()!!
-                    for (song in MusicTable.select{MusicTable.artistName.like("%${stringToSearch}%")}){
-                        println(song)
+                    var songsTosearch=MusicTable.select { MusicTable.artistName.like("%${stringToSearch}%") }
+                    for (song in songsTosearch) {
+                        println("$i) ${song.data.get(5)}\n")
+                        i+=1
                     }
                 }
                 3->{
-                    println(MusicTable.select { MusicTable.isFavorite.eq(true) })
+                    var i=1
+                    var songsTosearch=MusicTable.select { MusicTable.isFavorite.eq(true) }
+                    for (song in songsTosearch) {
+                        println("$i) ${song.data.get(5)}\n")
+                        i+=1
+                    }
                 }
                 4->wantsToContinue=false
                 else-> println("Esta opcion no esta en el menu")
