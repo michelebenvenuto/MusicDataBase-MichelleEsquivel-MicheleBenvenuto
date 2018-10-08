@@ -70,12 +70,10 @@ fun main(args: Array<String>) {
             when (selectedOption) {
                 1 -> {
                     print("Ingrese el nombre de la cancion que quiere buscar:")
-                    var i=1
                     val stringToSearch = readLine()!!
                     var songsTosearch=MusicTable.select { MusicTable.title.like("%${stringToSearch}%") }
                     for (song in songsTosearch) {
-                        println("$i) ${song.data.get(5)}\n")
-                        i+=1
+                        println("${song.data.get(0)}) ${song.data.get(5)}\n")
                     }
                     print("Desea guardar alguna cancion como favorita?")
                     var wantsToFavorite= readLine()!!
@@ -83,34 +81,24 @@ fun main(args: Array<String>) {
                         print("Cual?")
                         var songToFavorite= readLine()!!.toIntOrNull()
                         if (songToFavorite != null) {
-                            if (songToFavorite > i|| songToFavorite<0){
-                                println("Esta opcion no existe")
+                            var likedSong=MusicTable.select{MusicTable.id.eq(songToFavorite)}
+                            
                             }
-                            else{
-                                
-
-                            }
-
                         }
                     }
-
-
-                }
                 2->{
                     print("Ingrese el nombre del artista que quiere buscar:")
-                    var i=1
                     val stringToSearch = readLine()!!
                     var songsTosearch=MusicTable.select { MusicTable.artistName.like("%${stringToSearch}%") }
                     for (song in songsTosearch) {
-                        println("$i) ${song.data.get(5)}\n")
-                        i+=1
+                        println("${song.data.get(0)}) ${song.data.get(5)}\n")
                     }
                 }
                 3->{
                     var i=1
                     var songsTosearch=MusicTable.select { MusicTable.isFavorite.eq(true) }
                     for (song in songsTosearch) {
-                        println("$i) ${song.data.get(5)}\n")
+                        println("$${song.data.get(0)}) ${song.data.get(5)}\n")
                         i+=1
                     }
                 }
